@@ -873,8 +873,6 @@ static void arm_load_kernel_notify(Notifier *notifier, void *data)
         exit(1);
     }
     info->entry = entry;
-    if (is_linux) {
-        uint32_t fixupcontext[FIXUP_MAX];
 
         if (info->initrd_filename) {
             initrd_size = load_ramdisk(info->initrd_filename,
@@ -882,6 +880,9 @@ static void arm_load_kernel_notify(Notifier *notifier, void *data)
                                        info->ram_size -
                                        info->initrd_start);
             if (initrd_size < 0) {
+                fprintf(stderr, "Trying to load %s at %lu size %lu\n",
+                        info->initrd_filename, info->initrd_start,
+                        info->ram_size - info->initrd_start);
                 initrd_size = load_image_targphys(info->initrd_filename,
                                                   info->initrd_start,
                                                   info->ram_size -
@@ -897,6 +898,8 @@ static void arm_load_kernel_notify(Notifier *notifier, void *data)
         }
         info->initrd_size = initrd_size;
 
+    if (is_linux) {
+        uint32_t fixupcontext[FIXUP_MAX];
         fixupcontext[FIXUP_BOARDID] = info->board_id;
         fixupcontext[FIXUP_BOARD_SETUP] = info->board_setup_addr;
 
