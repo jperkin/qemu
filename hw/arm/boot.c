@@ -552,6 +552,8 @@ static void do_cpu_reset(void *opaque)
                 entry &= 0xfffffffe;
             }
             cpu_set_pc(cs, entry);
+            if (cs == first_cpu)
+                set_kernel_args(info);
         } else {
             /* If we are booting Linux then we need to check whether we are
              * booting into secure or non-secure state and adjust the state
