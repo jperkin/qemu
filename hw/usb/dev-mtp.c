@@ -436,7 +436,7 @@ static void inotify_watchfn(void *arg)
     ssize_t bytes;
     /* From the man page: atleast one event can be read */
     int pos;
-    char buf[sizeof(struct inotify_event) + NAME_MAX + 1];
+    char buf[sizeof(struct inotify_event) + _XOPEN_NAME_MAX + 1];
 
     for (;;) {
         bytes = read(s->inotifyfd, buf, sizeof(buf));
