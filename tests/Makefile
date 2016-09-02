@@ -590,7 +590,9 @@ tests/ivshmem-test$(EXESUF): tests/ivshmem-test.o contrib/ivshmem-server/ivshmem
 tests/vhost-user-bridge$(EXESUF): tests/vhost-user-bridge.o
 
 ifeq ($(CONFIG_POSIX),y)
+ifneq ($(CONFIG_SOLARIS),y)
 LIBS += -lutil
+endif
 endif
 
 # QTest rules
