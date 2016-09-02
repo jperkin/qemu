@@ -162,6 +162,7 @@ typedef struct E1000BaseClass {
 #define E1000_DEVICE_GET_CLASS(obj) \
     OBJECT_GET_CLASS(E1000BaseClass, (obj), TYPE_E1000_BASE)
 
+#undef SEC
 #define defreg(x)    x = (E1000_##x>>2)
 enum {
     defreg(CTRL),    defreg(EECD),    defreg(EERD),    defreg(GPRC),
